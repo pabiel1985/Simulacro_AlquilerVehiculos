@@ -86,6 +86,17 @@ public class  VehiculoDAO implements DAO<Vehiculo> {
         }
     }
 
+    @Override
+    public Vehiculo buscarPorId(String id) throws AccesoDatosException, ElementoNoEncontradoException {
+        return null;
+    }
+
+    @Override
+    public void actualizar(Vehiculo entidad) throws AccesoDatosException, ElementoNoEncontradoException {
+
+    }
+
+
     private Vehiculo crearVehiculo(ResultSet rs) throws SQLException {
         String tipo = rs.getString("tipo");
         String patente = rs.getString("patente");

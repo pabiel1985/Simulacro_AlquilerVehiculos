@@ -8,11 +8,11 @@ import modelo.Vehiculo;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface DAO <t>{
-    void  insertar(t elemento) throws AccesoDatosException;
-    List<t> listarTodos() throws AccesoDatosException;
+public interface DAO <T>{
+    void  insertar(T elemento) throws AccesoDatosException;
+    List<T> listarTodos() throws AccesoDatosException;
     void  eliminar(String id) throws AccesoDatosException, ElementoNoEncontradoException;
-
-
+    T buscarPorId(String id) throws AccesoDatosException, ElementoNoEncontradoException;
+    void actualizar(T entidad) throws AccesoDatosException, ElementoNoEncontradoException;
 
 }
