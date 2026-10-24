@@ -13,7 +13,8 @@ public class ConexionDB {
     private ConexionDB() {
     }
 
-    public static Connection getConexion() {
+    public static Connection getConexion() throws SQLException {
         return DriverManager.getConnection(URL, USUARIO, CLAVE);
     }
+    /// faltava exepcin de sql para evitar fallar
 }

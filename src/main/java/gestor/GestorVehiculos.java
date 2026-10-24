@@ -31,6 +31,12 @@ public class GestorVehiculos extends Gestor<Vehiculo> {
     public List<Vehiculo> listarPorCombustible(TipoCombustible combustible) {
         // TODO (Ej. 2.f): quedarse solo con los vehículos del combustible pedido y devolverlos.
         List<Vehiculo> resultado = new ArrayList<>();
+        for (Vehiculo v: elementos){
+            if (v.getCombustible() == combustible){
+                resultado.add(v);
+            }
+        }
+        return resultado;
     }
 
     public void alquilarVehiculo(String patente) throws ElementoNoEncontradoException, VehiculoNoDisponibleException {

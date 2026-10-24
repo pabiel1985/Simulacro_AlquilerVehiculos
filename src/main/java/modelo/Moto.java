@@ -12,13 +12,16 @@ public class Moto extends Vehiculo {
     }
 
     @Override
-    public int getTipo() {
-        return "MOTO";
+    public String getTipo() {
+        return "MOTO"; ///  el modulo era int y tenia que ser String
     }
 
     @Override
     protected double calcularAdicional(int dias) {
         // TODO (Ej. 2.d): aplicar el adicional de las motos según su cilindrada.
+        if (cilindrada > 500) {
+            return dias * 1000;
+        }
         return 0;
     }
 

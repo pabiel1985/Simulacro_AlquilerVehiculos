@@ -6,10 +6,10 @@ public class Camioneta extends Vehiculo {
 
     private boolean traccion4x4;
 
-    public Camioneta(String patente, String marca, String modelo, int anio, double precioBaseDiario, TipoCombustible combustible, boolean traccion4x4) {
-        super(patente, marca, modelo, precioBaseDiario, anio, combustible);
+    public Camioneta(String patente, String marca, String modelo, int anio,double precioBaseDiario, TipoCombustible combustible, boolean traccion4x4) {
+        super(patente, marca, modelo, anio, precioBaseDiario, combustible);
         this.traccion4x4 = traccion4x4;
-    }
+    } /// Orden incorecto en constructor
 
     @Override
     public String getTipo() {

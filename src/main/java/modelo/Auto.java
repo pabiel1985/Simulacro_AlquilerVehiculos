@@ -18,7 +18,8 @@ public class Auto extends Vehiculo {
 
     @Override
     protected double calcularAdicional(int dias) {
-        return precioBaseDiario * 0.05 * dias;
+        return getPrecioBaseDiario() * 0.05 * dias;
+        /// se comoca get faltante para comunicar con padre
     }
 
     public int getCantidadPuertas() {

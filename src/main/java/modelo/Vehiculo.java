@@ -2,8 +2,12 @@ package modelo;
 
 import enums.EstadoVehiculo;
 import enums.TipoCombustible;
+import excepciones.DatoInvalidoException;
+import excepciones.VehiculoNoDisponibleException;
 import interfaces.Alquilable;
 import interfaces.Identificable;
+
+import java.util.Objects;
 
 // TODO (Ej. 2.a): los vehículos dicen ser Identificable, pero ninguno cumple ese contrato todavía.
 public abstract class Vehiculo implements Alquilable, Identificable {
@@ -33,6 +37,9 @@ public abstract class Vehiculo implements Alquilable, Identificable {
     @Override
     public double calcularCostoAlquiler(int dias) {
         // TODO (Ej. 3.b): no tiene sentido calcular un alquiler por cero días o menos.
+        if (dias <= 0){
+            throw new DatoInvalidoException("ERROR: La cantidad de días debe ser mayor a cero (recibido:" + dias + ")");
+        }
         double costoBase = precioBaseDiario * dias * combustible.getFactor();
         if (dias > 7) {
             costoBase = costoBase * 0.90;
@@ -42,6 +49,10 @@ public abstract class Vehiculo implements Alquilable, Identificable {
 
     public void alquilar() {
         // TODO (Ej. 3.b): solo se puede alquilar un vehículo que esté disponible.
+        if (estado != EstadoVehiculo.DISPONIBLE) {
+            throw new VehiculoNoDisponibleException("ERROR: El vehículo " + getPatente() +
+                    " no está disponible (estado actual:" + estado + ")");
+        }
         estado = EstadoVehiculo.ALQUILADO;
     }
 
@@ -57,6 +68,9 @@ public abstract class Vehiculo implements Alquilable, Identificable {
 
     public void setPatente(String patente) {
         // TODO (Ej. 3.b): revisá las reglas de "Datos que no aceptamos".
+        if (patente == null || patente.isBlank()) {
+            throw new DatoInvalidoException("ERROR: La patente no puede estar vacía");
+        }
         this.patente = patente.toUpperCase();
     }
 
@@ -90,6 +104,10 @@ public abstract class Vehiculo implements Alquilable, Identificable {
 
     public void setPrecioBaseDiario(double precioBaseDiario) {
         // TODO (Ej. 3.b): revisá las reglas de "Datos que no aceptamos".
+        if (precioBaseDiario <= 0) {
+            throw new DatoInvalidoException
+                    ("ERROR: El precio base diario debe ser mayor a cero (recibido:" + precioBaseDiario +")");
+        }
         this.precioBaseDiario = precioBaseDiario;
     }
 
@@ -113,5 +131,21 @@ public abstract class Vehiculo implements Alquilable, Identificable {
     public String toString() {
         return String.format("[%s] %s - %s %s (%d) - $%.2f/día - %s - %s",
                 getTipo(), patente, marca, modelo, anio, precioBaseDiario, combustible, estado);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Vehiculo vehiculo)) return false;
+        return Objects.equals(patente, vehiculo.patente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(patente);
+    }
+
+    @Override
+    public String getId() {
+        return getPatente() ;
     }
 }
